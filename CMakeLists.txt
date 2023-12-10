@@ -67,16 +67,22 @@ install(DIRECTORY ${PROJECT_SOURCE_DIR}/include DESTINATION include)
 if(ENABLE_TESTS)
   # The test targets
   add_executable(testStatsdClient ${CMAKE_CURRENT_SOURCE_DIR}/tests/testStatsdClient.cpp)
+  add_executable(simpleClientTest ${CMAKE_CURRENT_SOURCE_DIR}/tests/simpleClientTest.cpp)
   if(WIN32)
     target_compile_options(testStatsdClient PRIVATE -W4 -WX /external:W0)
+    target_compile_options(simpleClientTest PRIVATE -W4 -WX /external:W0)
   else()
     target_compile_options(testStatsdClient PRIVATE -Wall -Wextra -pedantic -Werror -Wsign-conversion -Wsign-promo)
+    target_compile_options(simpleClientTest PRIVATE -Wall -Wextra -pedantic -Werror -Wsign-conversion -Wsign-promo)
   endif()
   target_include_directories(testStatsdClient PRIVATE ${CMAKE_CURRENT_SOURCE_DIR}/tests)
+  target_include_directories(simpleClientTest PRIVATE ${CMAKE_CURRENT_SOURCE_DIR}/include)
   target_link_libraries(testStatsdClient ${PROJECT_NAME})
 
   set_property(TARGET testStatsdClient PROPERTY CXX_STANDARD 11)
   set_property(TARGET testStatsdClient PROPERTY CXX_EXTENSIONS OFF)
+  set_property(TARGET simpleClientTest PROPERTY CXX_STANDARD 11)
+  set_property(TARGET simpleClientTest PROPERTY CXX_EXTENSIONS OFF)
 
   # The test suite
   enable_testing()
